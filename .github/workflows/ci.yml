@@ -54,6 +54,11 @@ jobs:
       - run: npm run lint
       - run: npm test
       - run: npm run verify:agent-skill
+      # The skill-loading and editor-command suites are not part of `npm test`
+      # (test:serial covers 0 of verify:skills' files and 2 of verify:editor's),
+      # so a PR could break skill loading or timeline commands and stay green.
+      - run: npm run verify:skills
+      - run: npm run verify:editor
       - run: npm run build
 
   frame-sync:
